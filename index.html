@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+<meta charset="UTF-8">
+<title>LinguaSpark — материалы для изучения английского</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(135deg,#7b8cff,#9f7bff,#ff7bd5);
+min-height:100vh;
+color:#333;
+}
+
+header{
+text-align:center;
+padding:40px;
+color:white;
+}
+
+header h1{
+font-size:42px;
+margin:0;
+}
+
+header p{
+opacity:0.9;
+font-size:30px;
+}
+
+.products{
+max-width:1200px;
+margin:auto;
+padding:30px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
+}
+
+.card{
+background:white;
+border-radius:18px;
+padding:18px;
+cursor:pointer;
+box-shadow:0 15px 40px rgba(0,0,0,0.15);
+transition:0.35s;
+position:relative;
+overflow:hidden;
+}
+
+.card:hover{
+transform:translateY(-8px) scale(1.02);
+}
+
+.card img{
+width:100%;
+border-radius:12px;
+}
+
+.card-title{
+font-size:18px;
+margin-top:10px;
+font-weight:600;
+}
+
+.card-price{
+color:#6b5cff;
+font-size:20px;
+margin-top:8px;
+font-weight:600;
+}
+
+.buy-btn{
+margin-top:10px;
+background:linear-gradient(90deg,#ff7bd5,#7b8cff);
+border:none;
+color:white;
+padding:10px 16px;
+border-radius:10px;
+cursor:pointer;
+font-weight:600;
+transition:0.25s;
+}
+
+.buy-btn:hover{
+transform:scale(1.05);
+}
+
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.45);
+display:none;
+align-items:center;
+justify-content:center;
+}
+
+.modal-content{
+background:white;
+width:350px;
+border-radius:20px;
+padding:30px;
+animation:zoomCard 0.35s ease;
+box-shadow:0 30px 80px rgba(0,0,0,0.3);
+}
+
+@keyframes zoomCard{
+0%{transform:scale(0.7);opacity:0;}
+100%{transform:scale(1);opacity:1;}
+}
+
+.carousel{
+position:relative;
+}
+
+.carousel img{
+width:100%;
+border-radius:14px;
+}
+
+.carousel button{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:white;
+border:none;
+font-size:22px;
+padding:8px 12px;
+border-radius:50%;
+cursor:pointer;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.prev{left:10px;}
+.next{right:10px;}
+
+.modal-price{
+font-size:26px;
+color:#6b5cff;
+font-weight:700;
+margin-top:10px;
+}
+
+.footer{
+margin-top:60px;
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(10px);
+padding:40px;
+color:white;
+}
+
+.footer-container{
+max-width:1200px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:30px;
+}
+
+.footer-column h3{
+margin-bottom:10px;
+}
+
+.footer-column p{
+opacity:0.9;
+font-size:14px;
+}
+
+.copyright{
+text-align:center;
+margin-top:30px;
+opacity:0.8;
+font-size:13px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>LinguaSpark</h1>
+<p>Яркие материалы для изучения английского для детей и взрослых</p>
+</header>
+
+<div class="products">
+
+<div class="card">
+<img src="./images/circuit.png">
+<div class="card-title">Английский по сериалу Circuit Breakers</div>
+<div class="card-price">399 ₽</div>
+<button class="buy-btn" onclick="openModal(0)">Купить</button>
+</div>
+
+<div class="card">
+<img src="./images/secrets.png">
+<div class="card-title">Английский по Secrets of Sulphur Springs</div>
+<div class="card-price">399 ₽</div>
+<button class="buy-btn" onclick="openModal(1)">Купить</button>
+</div>
+
+<div class="card">
+<img src="./images/ребенок.png">
+<div class="card-title">Грамматика без скуки</div>
+<div class="card-price">399 ₽</div>
+<button class="buy-btn" onclick="openModal(2)">Купить</button>
+</div>
+
+<div class="card">
+<img src="./images/фразы.png">
+<div class="card-title">100 разговорных фраз</div>
+<div class="card-price">199 ₽</div>
+<button class="buy-btn" onclick="openModal(3)">Купить</button>
+</div>
+
+<div class="card">
+<img src="./images/мем.png">
+<div class="card-title">Английский не всерьёз</div>
+<div class="card-price">299 ₽</div>
+<button class="buy-btn" onclick="openModal(4)">Купить</button>
+</div>
+
+<div class="card">
+<img src="./images/дети.png">
+<div class="card-title">Английский для детей через игры</div>
+<div class="card-price">450 ₽</div>
+<button class="buy-btn" onclick="openModal(5)">Купить</button>
+</div>
+
+</div>
+
+<div class="modal" id="modal">
+
+<div class="modal-content">
+
+<div class="carousel">
+<button class="prev" onclick="prevImage()">‹</button>
+<img id="modal-image">
+<button class="next" onclick="nextImage()">›</button>
+</div>
+
+<h2 id="modal-title"></h2>
+<p id="modal-description"></p>
+<div class="modal-price" id="modal-price"></div>
+
+<br>
+<button class="buy-btn">Купить</button>
+
+</div>
+</div>
+
+<footer class="footer">
+
+<div class="footer-container">
+
+<div class="footer-column">
+<h3>Контакты</h3>
+<p>Email: carnation2000@mail.ru</p>
+<p>Telegram: @martaship</p>
+<p>Website: linguaspark.com</p>
+</div>
+
+<div class="footer-column">
+<h3>Правила покупки</h3>
+<p>
+Все материалы на сайте являются цифровыми продуктами.
+После оплаты вы получаете доступ к скачиванию файлов.
+</p>
+<p>
+Возврат средств за цифровые товары не осуществляется
+после получения доступа к материалам.
+</p>
+</div>
+
+<div class="footer-column">
+<h3>Публичная оферта</h3>
+<p>
+Покупая материалы на сайте, вы соглашаетесь с условиями
+использования и правилами покупки.
+</p>
+<p>
+Материалы предназначены только для личного использования
+и не могут распространяться без разрешения автора.
+</p>
+</div>
+
+</div>
+
+<div class="copyright">
+© 2026 LinguaSpark — Все права защищены
+</div>
+
+</footer>
+
+<script>
+
+const products=[
+
+{
+title:"Английский по сериалу Circuit Breakers",
+price:"399 ₽",
+description:"Материалы для изучения английского через диалоги из сериала Circuit Breakers.",
+images:["./images/circuit.png"]
+},
+
+{
+title:"Английский по Secrets of Sulphur Springs",
+price:"399 ₽",
+description:"Учите английский через мир Серных Источников.",
+images:["./images/secrets.png"]
+},
+
+{
+title:"Грамматика без скуки",
+price:"399 ₽",
+description:"Простая и понятная грамматика английского.",
+images:["./images/ребенок.png"]
+},
+
+{
+title:"100 разговорных фраз",
+price:"199 ₽",
+description:"Самые нужные разговорные фразы английского языка.",
+images:["./images/фразы.png"]
+},
+
+{
+title:"Английский не всерьёз",
+price:"399 ₽",
+description:"Практика английского по популярным мемам.",
+images:["./images/мем.png"]
+},
+
+{
+title:"Английский для детей через игры",
+price:"450 ₽",
+description:"Игровые задания и карточки для изучения английского детьми.",
+images:["./images/дети.png"]
+}
+
+];
+
+let currentProduct=0
+let currentImage=0
+const modal=document.getElementById("modal")
+const modalImage=document.getElementById("modal-image")
+
+function openModal(index){
+
+currentProduct=index
+currentImage=0
+
+const product=products[index]
+
+modal.style.display="flex"
+
+document.getElementById("modal-title").innerText=product.title
+document.getElementById("modal-price").innerText=product.price
+document.getElementById("modal-description").innerText=product.description
+document.getElementById("modal-image").src=product.images[0]
+
+}
+
+function nextImage(){
+
+const product=products[currentProduct]
+
+currentImage++
+if(currentImage>=product.images.length){
+currentImage=0
+}
+
+modalImage.src=product.images[currentImage]
+
+}
+
+function prevImage(){
+
+const product=products[currentProduct]
+
+currentImage--
+if(currentImage<0){
+currentImage=product.images.length-1
+}
+
+modalImage.src=product.images[currentImage]
+
+}
+
+window.onclick=function(e){
+if(e.target==modal){
+modal.style.display="none"
+}
+}
+
+</script>
+
+</body>
+</html>
